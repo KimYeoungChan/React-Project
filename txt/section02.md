@@ -16,67 +16,255 @@
 
 - 웹사이트에서 자바스크립트 코드가 추가가 되는지 확인하는 방법
 
-1. <script> 태그를 삽입하는 방법
-2. 자바스크립트 코트를 임포트하는 방법
+- <script> 태그를 삽입하는 방법
+- 자바스크립트 코트를 임포트하는 방법
 
 - 자바스크립트는 파일명이 .js로 된다
 - head 영역이랑 body영역에 넣을 수 있다.
 - 'defer' 라는 속성으로 html을 다 읽은후 script를 읽어라는 명령을 할 수 있습니다.
-  defer가 없으면 바로 script가 실행이 된다.
+- defer가 없으면 바로 script가 실행이 된다.
 - "type = module"를 하면 모듈로 인식해서 다른 js 파일을 import 할 수 있습니다.
 - 리액트로 작업을 할 떄, 빌드 프로세스를 이용을 함
 
-## 15. 리액트 프로젝트 구축 프로세스
+## 16. 리액트 프로젝트 구축 프로세스
 
 - 자바스크립 코드로 구축이 된다
 - 작성한 코드 그대로 브라우저에 실행이 되는게 아니고 그 대신 브라으저 내부적으로 코드가 수정됩니다
-- package.json 파일은 프로젝트에서 ㅔ사용하는 모든 의존성 모든 라이브러리 목록
-- react-script 패키지는 브라우저제 전달되기 전에 뒤에서 코드를 변환하는 다양한 툴 제공
-
-리액트 프로젝트는 빌드 프로세스를 사용함
-
-- 첫번째 이유 : 먼저 처리되지 않은 리액트 코드는 브라우저에서 실행할 수 없기 때문입니다
-- 리액트 코드는 특별한 JSX 기능을 사용하기 때문입니다
 - 리액트의 핵심은 자바스크립트 파일에 HTML 같은 코드를 넣는 것이기 때문입니다
 - 두번째 이유 : 웹사이트 방문자가 다운로드해야 하는 코드의 양을 최대한 줄일 수 있도록 최적화된 코드입니다
 
-## 16. “import” 및 "export"
+## 17. “import” 및 "export"
 
 - export를 하면 다른 파일에서 export한 파일을 쓸 수 있습니다
 - 로컬 환경에서 이와같이 해야됨
+  @@ -80,3 +80,52 @@
+  imoport { 전변수명 as 바꿀 변수명}
+  console.log(바꿀 변수명) // 전변수명
+
+## 18. 변수와 값 다시 보기
+
+- 자바스크립트를 이용해서 앱을 만들 때, 데이터를 다룹니다.
+- 다양한 유형의 타입의 데이터를 다룰 수 있다 (string, Number, boolean,)
+- 변수를 사용을 하면 재사용 및 가독성에 좋다
+- 'let 이라는 재할당 가능 변수, const이라는 상수형 변수'
+- 카멜케이스 문법으로 두 번째 단어부터는 첫 문자는 대문자로 쓰면된다
+- const라는 상수형 변수는 다시 선언을 못한다
+
+## 19. 연산자 다시 보기
+
+- "+, -, \*, /" 등 수학 연산자로는 숫자는 가능하다
+- 문자형은 "=(대입), ==(값만 일치), ===(값과 타입 일치)"
+- if문으로 조건을 걸어서 내가 원하는 값을 추출 할 수 있다
+
+## 20. 함수와 매개변수 다시 보기
+
+특징
+
+- 함수(function) : function, () => 등의 신택스 로 할수 있다
+- 바로 실행되는 코드가 아니라 나중에 함수를 호출 했을 때, 실행되는 코드를 정의하는 것임
+- 함수를 여러번 실행도 가능하다
+- 값을 반환도 가능하다( return이라는 키워드로)
+- 매개변수와 return이라는 키워드는 서로 독립적으로 사용 가능하면서 동시에 사용 가능하다
 
 ```
- ex export let apiKey = "dsfsfsdfsdfds";
- ex improt (apiKey) from "불러올 파일 경로"
-```
 
-- 빌드 프로세스는 자동으로 확장자 추가해서 직접 안해도 된다
+// 함수 문법
 
-자바스크립트에서는
-
-- 로컬에서는 리액트랑 마찬가지로 import, export로 해야됨
-- 빌드 프로세스는 "type = module"를 써야됨
-
-- 변수 또는 함수 앞에 export 키워드를 달아 익스포트하는 대신 default 키워드를 추가해 디폴트 익스포트를 생성할 수 있습니다
-
-- import로 불러오고 그 변수를 콘솔이 출력이 된다
+function 변수명(매개변수1, 매개변수2 ="값") {
+// 내가 실행할 코드
+console.log('Hello')
+console.log(매개변수1)
+console.log(매개변수2)
+}
 
 ```
-개념을 학습하면 하나의 파일에 하나의 컴포넌트, 즉 하나의 자바스크립트 함수만 존재하는 경우가 많으므로 이 신택스를 자주 사용합니다
-```
 
-- import를 할 때, 중괄호 안에 쉼표로 구분해 입력하는 대신 자바스크립트 객체로 묶어 한 번에 임포트할 수 있습니다
-
-```
-    import * as util from "경로"
-```
-
-저는 util로 하겠습니다 그런 다음 임포트하려는 파일의 경로를 입력합니다
-이렇게 하면 util.js가 제공하는 모든 대상이 이 객체에 결합됩니다
-
-- 그리고 변수명이 맘에 안들면
+// 구성
+함수안에 이렇게 하면 (매개변수1, 매개변수2 ="값")
+매개변수 값에 기본값을 지정을 할 수 있는 것이다 (즉, 오버라이드 한것입니다.)
+// 함수 실행하는 법
+변수명(매개변수1, 매개변수2);
+// 함수 동시에 사용하는 방법
+return에서 사용되는 코드 명령어를 변수로 저장을 해서 변수로 호출을 하면 된다.
 
 ```
-imoport { 전변수명 as 바꿀 변수명}
-console.log(바꿀 변수명) // 전변수명
+
 ```
+
+연습: 함수 다루기
+여러분이 해야 할 작업은 다음과 같은 특성을 가진, combine이라는 이름의 함수를 만드는 것입니다.
+
+· 입력값은 3개 받습니다.
+
+· 입력값에 따른 새로운 값 a \* b / c (a, b, c는 입력값)을 계산합니다.
+
+· 계산 결과를 반환합니다.
+
+```
+
+답
+
+```
+
+function combine (a, b, c) {
+return a \* b / c
+}
+combine();
+
+```
+
+```
+
+## 21. 화살표 함수
+
+- 익명함수를 이용할 때, 자주 사용하는 것임
+
+```
+  익명함수 쓰는 법
+  export default function() {
+    console.log('Hello!');
+  }
+
+  export default (userName, message) =>  {
+    console.log('Hello!');
+    return userName + message;
+  }
+```
+
+## 22. 화살표 함수 구문에 대해 자세히 알아보기
+
+화살표 함수를 다룰 때는 '구문 단축키'를 사용할 수 있습니다.
+가장 중요한 것은 다음과 같은 대안에 대해 알고 있어야 한다는 것입니다.
+
+```
+1. 매개변수 목록 괄호 생략하기
+화살표 함수가 정확히 하나의 매개변수만 사용하는 경우, 묶는 괄호를 생략할 수 있습니다.
+(userName) => { ... } 가 아니라 userName => { ... } 라고 쓸 수 있습니다.
+함수에 매개변수가 없는 경우에는, 괄호를 생략해서는 안 됩니다.
+
+() => { ... } 라고 써야 옳습니다.
+
+함수가 둘 이상의 매개변수를 받는 경우에도 괄호를 생략해서는 안 됩니다.
+userName, userAge => { ... } 라고 쓰면 안 됩니다.
+(userName, userAge) => { ... } 라고 써야 합니다.
+```
+
+2. 함수 본문 중괄호 생략하기
+
+화살표 함수에 반환문 외에 다른 로직이 없는 경우, return키워드와 중괄호를 생략할 수 있습니다.
+number => { return number \* 3;} 라고 쓰는 게 아니라 number => number \* 3; 라고 쓸 수 있습니다.
+
+아래와 같이 오류가 생깁니다.
+number => return number \* 3; // 이 경우 retrun 키워드는 생략되어야 하므로, 오류가 생깁니다.
+number => if (number === 2) { return 5 }; // 이 경우 if 문은 반환될 수 없으므로 오류가 생깁니다.
+
+3. 특수한 경우: 객체만 반환하는 경우
+
+2.에서 설명한 짧은 대안으로 자바스크립트 객체를 반환하려고 하면, 다음과 같이 유효하지 않은 코드가 나올 수 있습니다.
+
+number => ({ age: number }); // 객체를 반환하려고 합니다.
+자바스크립트는 중괄호를 JS 객체를 생성하는 코드가 아닌 함수 본문 래퍼로 취급하기 때문에 이 코드는 유효하지 않습니다.
+객체를 생성하고 반환해야 한다고 자바스크립트에 “말하려면” 코드를 다음과 같이 수정해야 합니다:
+
+number => ({ age: number }); // 추가 괄호를 써서 객체를 감싸줍니다.
+객체와 중괄호를 추가 괄호로 감싸면, 자바스크립트는 중괄호가 함수 본문을 정의하는 것이 아니라 객체를 생성하기 위한 것임을 이해합니다. 따라서 객체가 반환됩니다.
+
+## 23. 객체와 클래스 다시 보기
+
+-
+
+```
+  객체(object)
+  const user = {
+    name "Max",
+    age : 34,
+    greet() {
+      console.log("Hello!!");
+      console.log(this.age);
+    }
+  };
+
+  console.log(user) // name :"Max", age : 34
+  console.log(user.name) // "Max"
+  user.greet() // "Hello!!", 34
+```
+
+class 키워드 사용
+
+```
+class User {
+  // 생성자 생성
+  constructor(name, age){
+    this.name = name;
+    this. age = age;
+  }
+  greet() {
+    console.log("Hi");
+  }
+}
+
+const user1 = new User("Manuel", 35);
+console.log(user1);
+
+```
+
+## 24. 배열 및 배열 메소드(map()과 같은)
+
+- 배열(Array)
+- 배열 생성할라면 [](대괄호)로 해야됨
+- 배열 안데 여러 가지 타입의 값을 저장을 할 수 있다.
+- 개별 값은 쉽표로 구분이 된다.
+
+```
+  const hobbies = ['Sports', 'Cooking', "Reading"];
+  console.log(hobbies[0]); // Sports
+  console.log(hobbies[1]); // Cooking
+  console.log(hobbies[2]); // Reading
+
+  // 배열 메소드를 사용법
+  hobbies.(여러 가지 함수)
+
+  // 새로운 배열 생성
+  hobbies.push("Working");
+  console.log(hobbies); // ['Sports', 'Cooking', "Reading", "Working"]
+
+  // 특정 원하는 값을 찾는 메소드
+  const index = hobbies.findIndex((item) =>
+    return item === "Sports"
+   );
+   // 리턴문을 삭제 할 수 있음
+  const index = hobbies.findIndex((item) => item === "Sports")
+  console.log(index); // 0
+
+  // 배열의 모든 원소를 다른 원소로 변경
+  // 기존에서 학는게 아니고 완전 새 배열에서
+  const editedHobbies = hobbies.map((item) => item + "!");
+  console.log(editedHobbies); // ['Sports', 'Cooking', "Reading", "Working"]
+
+  // 객체로 담을 수 있다
+  // 각자 text:키에 itek ㄴ허는 함수이다
+  const editedHobbies = hobbies.map((item) => item + ({ text : item }));
+  console.log(editedHobbies);
+```
+
+```
+메소드
+여러분이 해야 할 작업은 숫자 목록을 자바스크립트 객체 목록으로 변환하는transformToObjects() 함수에 빠진 로직을 추가하는 것입니다.
+
+새로 반환되는 배열에서, 모든 객체는 val키와 입력 배열의 숫자를 값으로 가져야 합니다.
+
+예를 들어, [1, 2, 3] 이 입력된 경우,  transformToObjects([1, 2, 3]) 함수는 [{val: 1}, {val: 2}, {val: 3}]을 변환해야 합니다.
+
+```
+
+```
+// 답
+function transformToObjects(numberArray) {
+    // Todo: Add your logic
+    // should return an array of objects
+    return numberArray.map((item) => ({ val : item }) )
+}
+transformToObjects([1,2,3])
+```
+
+## 25. 디스트럭처링
