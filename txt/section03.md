@@ -430,5 +430,12 @@ export default ExpenseItem;
 
 ```
  toLocaleString() 쓰는법
- toLocaleString( '내가 쓰는 지역 언어 태그',)
+ toLocaleString( '내가 쓰는 지역 언어 태그','얼마나 구체적으로 할 설정하는 객체')
 ```
+
+## 51. props를 전달하고 받는 대안적 방법/props 처리하기
+
+- 컴포넌트 안에 로직과 JSX 코드가 많아지면 컴포넌트가 점점 커진다
+- ExpenseItem component를 두개로 나눌수 있다
+- ExpenseDate를 생성하고 date 변수를 넣으면 된다
+- 컴포넌트가 커지면 컴포넌트를 분할하고 싶다
