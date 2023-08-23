@@ -439,3 +439,5 @@ export default ExpenseItem;
 - ExpenseItem component를 두개로 나눌수 있다
 - ExpenseDate를 생성하고 date 변수를 넣으면 된다
 - 컴포넌트가 커지면 컴포넌트를 분할하고 싶다
+- 하나의 컴포넌트만 그런게 아니고 다수의 컴포넌트가 통과하면서 데이터 전달함
+- 어떤 컴포넌트로부터 자식 컴포넌트로 데이터 전달함
