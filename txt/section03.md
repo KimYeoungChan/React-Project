@@ -441,3 +441,17 @@ export default ExpenseItem;
 - 컴포넌트가 커지면 컴포넌트를 분할하고 싶다
 - 하나의 컴포넌트만 그런게 아니고 다수의 컴포넌트가 통과하면서 데이터 전달함
 - 어떤 컴포넌트로부터 자식 컴포넌트로 데이터 전달함
+
+## 52. 컴포지션("자식 prop")의 개념
+
+- JSX랑 원한다면 스타일, 그리고 추가적인 자바스크립트 로직을 조합한 사용자 지정 HTML 요새 핵심이 컴포넌트의 개념임
+- App.js에서 Expenses.js 사용
+- Expenses.js에서 ExpenseItem.js 사용
+- ExpenseItem.js에서 ExpenseDate.js 사용
+- ExpenseDate.js에서 Expenses.js 사용
+- 모든 지출 항목을 담고 있는 컨테이너 있음
+- 공통적인 스타일 컴포넌트로 제작하는 것임
+- Card component가 ExpenseITem 컴포넌트 안에 넣음
+- App.js에서 div 대신에 Card 컴포넌트로 씀
+- 컴포넌트를 조합할 때는 항상 컴포지션 사용함
+- 컴포지션은 props.children로 하는 것임
