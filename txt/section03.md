@@ -455,3 +455,34 @@ export default ExpenseItem;
 - App.js에서 div 대신에 Card 컴포넌트로 씀
 - 컴포넌트를 조합할 때는 항상 컴포지션 사용함
 - 컴포지션은 props.children로 하는 것임
+
+## 53. 첫 번째 요약
+
+- syntax & JSX
+- Components 사용법
+- Data 사용법 ( props 개념 )
+- 사용자 지정 컴포넌트들은 결국 화면에 표시되는 실제 HTML임
+- 궁긍적으로 여러분이 만드는 모든 사용자 지정 컴포넌트는 이런 HTML 내장 요소를 사용하거나 또 다른 컴포넌트를 상요하기 떄문이죠
+- 가장 중요한 것은 컴포넌트와 props가 가장 중요한 개념들이에요
+- props를 이용을 해서 재사용이 가능하다.
+
+## 54. JSX 자세히 살펴보기
+
+- 브라우저는 JSX코드를 지원하지 않는다
+- package.json 의존성이 있음
+- 리액트에 관련 의존성은 react와 react-dom를 사용
+- 과거에는 react로부터 React를 임호트해야 했기 때문이에요(JSX 코드가 필요성)
+
+```
+(React.createElement('div',
+{},
+React.creatElement('h2'),
+{},
+"Let's get started!!" ),
+React.createElement(Expenses, {items: exensess})
+)
+
+```
+
+- 과거에서 react를 임포트는 JSX 사용하는 모든 컴포넌트에 넣어준다
+- 여러 개를 리턴을 할 수 없다.

@@ -1,4 +1,5 @@
 import Expenses from "./components/Expenses.js";
+import React from "react";
 
 function App() {
   // 데이터
@@ -23,6 +24,13 @@ function App() {
       date: new Date(2021, 5, 12),
     },
   ];
+
+  // return React.createElement(
+  // "diV",
+  // {},
+  // React.createElement("h2", {}, "Let's get started!!"),
+  // React.createElement(Expenses, { items: expenses })
+  // );
 
   return (
     <div>
