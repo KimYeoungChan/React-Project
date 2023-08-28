@@ -1,7 +1,7 @@
-import Expenses from "./components/Expenses.js";
+import Expenses from "./components/Expenses/Expenses";
 import React from "react";
 
-function App() {
+const App = () => {
   // 데이터
   const expenses = [
     {
@@ -39,6 +39,6 @@ function App() {
       <Expenses items={expenses} />
     </div>
   );
-}
+};
 
 export default App;
