@@ -14,6 +14,7 @@ const ExpenseItem = (props) => {
         {/* amount 값은 props.amount라고 받음 */}
         <div className="expense-item__price">${props.amount}</div>
       </div>
+      <button>Change Title</button>
     </Card>
   );
 };
