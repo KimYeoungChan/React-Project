@@ -4,17 +4,26 @@ import Card from "../UI/Card";
 import "./ExpenseItem.css";
 
 const ExpenseItem = (props) => {
+  // function clickHandler() {}
+
+  let title = props.title;
+
+  const clickHandler = () => {
+    title = "Updated!";
+    console.log(title);
+  };
+
   return (
     <Card className="expense-item">
       {/* date 값은 props.date라고 받음 */}
       <ExpenseDate date={props.date} />
       <div className="expense-item__description">
         {/* title 값은 props.title라고 받음 */}
-        <h2>{props.title}</h2>
+        <h2>{title}</h2>
         {/* amount 값은 props.amount라고 받음 */}
         <div className="expense-item__price">${props.amount}</div>
       </div>
-      <button>Change Title</button>
+      <button onClick={clickHandler}>Change Title</button>
     </Card>
   );
 };

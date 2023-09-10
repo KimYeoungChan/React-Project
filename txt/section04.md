@@ -200,3 +200,62 @@ export default Concept;
 
 - 버튼을 클릭하면 어떤 반응인지 보기
 - html button element 라고 구글에 검색을 하면 button에 대한 설명이 나옴
+- 리액트는 버튼 이벤트에 대해서 프로퍼티에 대해서 생성함
+- 보통 on으로 시작을 한다.
+- 클릭을 할 때에는 onClick 프로퍼티를 쓰고 onClick 안에 함수를 써야된다.
+
+```
+onClick={() => {
+          console.log("Clicked");
+        }}
+  익명의 함수를 쑤는 것도 좋고 function을 써도 좋지만 보통 바람직하지 않는 표현임
+```
+
+- 보통 함수는 return 전에 쓰는 것이 좋다
+- 함수를 function을 쓰든 const로 변수로 해서 써도 좋다.
+
+```
+<button onClick={clickHandler}>Change Title</button>
+```
+
+- 함수 이름만 넣으면 된다(그 뜻이 지목을 한다는 것이다)
+- 클릭을 했을 때, 실행이 되는게 아니라 JSX 코드가 평가 될때, onClick에 있는 함수가 실행됨
+- 모든 내장 HTML에 이벤트 리스너를 추가 할 수 있다
+- 기본 DOM 동작에 대해서만 기능을 한다
+- 함수 이름을 적을 때, 이벤트이름 + Hanlder를 보통 붙여준다
+
+```
+연습: 이벤트 수신하기
+Imagine you're working on a brand-new React app that should allow users to bookmark articles (e.g., news articles).
+
+To start with your work, your task is to "connect" a click event listener to an already existing button and output "Stored!" via console.log(). And, of course, you should do that "the React way".
+
+답
+import React from 'react';
+
+import './styles.css';
+// don't change the Component name "App"
+export default function App() {
+    const connectHandler = () => {
+        console.log("Stored!")
+    }
+
+    return <button onClick={connectHandler}>Bookmark</button>;
+}
+```
+
+## 68. 컴포넌트 함수가 실행되는 방법
+
+- 화면에 표시가 되는 부분 수정하는 법
+- let 변수 생성 후 하는법
+- 함수는 실행이 되는데 DOM에는 반영이 안되는 이유는 리액트가 생성되는 이유가 아니라서
+- 리액트 코드가 어떻게 JSX를 파싱하는지
+- 함수는 호출을 해야지 실행이 된다.
+- 리액트는 Expenses.js 안에 있는 함수 호출
+- 리액트는 JSX에서 마주치는 모든 컴포넌트 함수를 계속해서 호출합니다(모든 함수 호출)
+- index.js에서 보통 App.js를 호출함
+- 버튼을 클릭을 하면 title이 바뀌어야 함
+
+## 69. "State"와 함께 일하기
+
+-
