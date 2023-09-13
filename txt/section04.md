@@ -258,4 +258,71 @@ export default function App() {
 
 ## 69. "State"와 함께 일하기
 
--
+- 내장되있는 시스템을 이용함
+- clickHandler가 실행 했을 때, title 값은 사실 데이터입니다.
+- 이 컴포넌트가 재평가되고 이 title 데이터에 변동 사항이 생기면 화면에도 반영이 되야됨
+- 이 코드로는 첫 번재 렌더링 다음에 호출이 되지 않음
+- 리액트 라이브러를 가지고 와야됨
+- import {} : 리액트 라이브러리의 특정 요소
+- 모든 리액트 훅은 use라는 단어로 시작함
+- 함수 안에는 호출을 해야됨
+- useState는 변수 값이 변하면 재호출을 하도록 만드는 것임
+- 해당 변수에 새 값을 할당하기 위해 호출 할수 있는 함수를 리턴함
+- 상태 변수가 작동하는 방식임
+- useState는 배열을 리턴함
+- 배열 구조 분해 할당이라는 JS 기능을 사용함
+
+```
+  const [초기값, set초기값] = useState()
+  초기값 : 변수값
+  set초기값 : 나중에 새 품명을 설정할 떄 호출됨(초기값 변수를 이용함)
+```
+
+- 리턴하는 두 요소의 이름을 관용적인 방식입니다.
+- set초기값을 실행하는 것이 단지 변수의 값을 변하는 것이 아니다
+- 상태 업데이트 함수를 실행할 떄, 이 특별한 변수는 새 값을 수신할 뿐만 아니라 useState값이 있는 값이 있는 함수를 재실행합니다
+- 정리를 하면 useState 함수를 쓰면 처음에 렌더링 되는 부분에서
+  변수의 값이 변환이 되면 JSX 코드를 재평가를 해서 다시 재 렌더링이 되는 부분입니다.
+- 재렌더링 시키고 싶으면 상태가 등록된 useState를 쓰면 된다
+
+코딩 연습 9
+
+```
+여러분이 해야 할 작업은 App컴포넌트에 이미 포함된 버튼 클릭을 수신하는 이벤트 리스너를 추가하는 것입니다.
+
+버튼을 클릭하면 가격이 $100에서 $75로 변경되어야 합니다.
+
+기존 App 컴포넌트 함수에 상태 값을 추가하고, 버튼 클릭 시 상태 값이 업데이트되고 JSX 코드의 일부로 출력되도록 합니다.
+
+---
+
+중요: useState()와 같은 리액트 Hook을 사용할 때는,useState()만 별도로 import해서 사용하지 말고, React.useState()로 사용해야 합니다. 이 Udemy 코드 에디터/환경에서는 React.useState()를 사용하지 않으면 UI를 표시하지 못할 수 있습니다!
+
+```
+
+답
+
+```
+import React, { useState } from 'react';
+
+import './styles.css';
+
+// don't change the Component name "App"
+// important: In this code editor, use React.useState() instead of just useState()
+export default function App() {
+
+    const [money, setMoney] = React.useState("$100");
+
+    function clickHandler () {
+        setMoney("$75")
+    };
+
+    return (
+        <div>
+            <p>{money}</p>
+            <button onClick={clickHandler}>Apply Discount</button>
+        </div>
+    );
+}
+
+```
