@@ -26,6 +26,12 @@ const App = () => {
     },
   ];
 
+  // 가장 먼저 렌더링 되는 컴포넌트에 잘 들어왔는지 확인
+  const addExpenseHandler = (expenses) => {
+    console.log("In App.js");
+    console.log(expenses);
+  };
+
   // return React.createElement(
   // "diV",
   // {},
@@ -35,7 +41,7 @@ const App = () => {
 
   return (
     <div>
-      <NewExpense />
+      <NewExpense onAddExpense={addExpenseHandler} />
       {/* expenses 컴포넌트 items 안에 expenses데이터 넣음 */}
       <Expenses items={expenses} />
     </div>

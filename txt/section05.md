@@ -218,3 +218,254 @@ const [userInput, setUserInput] = useState({
 - 키-쌍 값이 사라지는 것임
 - 단일로 하는 것은 객체로 저장을 해서 하는 것임
 - 기존 값 말고 나머지 값을 유지할라면 수동으로 값을 복사를 해줘야 합니다.
+
+## 76. 이전 상태에 의존하는 상태 업데이트하기
+
+- 하나의 상태로 할 때에는, 이전 상태에 의존하는 상태로 해야된다!
+- 이전 상태의 스냅샷에 기대서 기존의 값을 복사한 뒤 새 값으로 이전 값을 오버라이드 한 거죠
+- 기존에 있는 값을 주석처리하고 먼저 함수를 호출한 다음 이 함수에 함수를 넣어야 합니다
+- 한마디로 useState 안에 함수를 넣는 것입니다
+
+```
+setUserInput((prevState) => {
+      return { ...prevState, enteredTitle: event.target.value };
+    });
+```
+
+- 다수의 상태 업데이를 동시에 예약할 경우, 오래 되었꺼나 잘못된 상태 스냅샷에 의존하게 될 수도 있습니다.
+- 리액트는 상태 업데이트를 예약한다고 즉시 처리 못함
+
+```
+연습: 양식 입력에 상태 사용하기
+문자 메시지 앱을 작업 중이라고 해봅시다. 여러분이 해야 할 작업은 사용자가 타이핑하는 동안 사용자가 입력한 텍스트의 유효성을 검사하는 작업을 수행하는 것입니다.
+
+입력한 문자 메시지가 유효한 경우(예를 들어 길이가 3 글자 이상인 경우) 입력 필드 아래에 "Valid message" 라는 텍스트가 표시됩니다. 유효하지 않은 경우(즉, 3 글자보다 짧은 경우) "Invalid message"라는 텍스트가 표시되어야 합니다.
+
+이 이미지는 유효하지 않은 메시지(즉, 너무 짧은 메시지)를 입력했을 때 완성된 앱이 어떻게 보이는지 보여줍니다:
+
+
+
+이것은 동일한 앱에 유효한 메시지를 입력한 경우입니다:
+
+
+
+이런 결과를 얻으려면, 현재 메시지 유효성(즉, "Invalid"또는 "Valid" 문자열)을 어떤 상태 값에 저장해야 합니다. 이 상태 값은 입력 값이 변경될 때마다 업데이트되어야 합니다. 따라서 상태를 업데이트하는 코드를 트리거하는 적절한 이벤트 리스너를 추가해야 합니다.
+
+
+
+적절한 상태 값(즉, "Invalid"또는 "Valid" )을 도출하기 위해 다음 if조건을 사용할 수 있습니다.
+
+if (value.trim().length < 3) {  // 할일: "Invalid"라고 하도록 상태를 업데이트하기} else {  // 할일: "Valid"라고 하도록 상태를 업데이트하기}
+당연히 App 컴포넌트의 JSX 코드의 일부로 상태 값을 출력하여 "Invalid message"또는 "Valid message"가 표시되도록 해야 합니다.
+
+중요: Udemy 코드 에디터에서 작업할 때는 useState()가 아니라 React.useState()를 사용해야 합니다!
+```
+
+답
+
+```
+import React, {useState} from 'react';
+
+// don't change the Component name "App"
+export default function App() {
+
+    const [message, setMessage] = React.useState('Invalid');
+
+    const handleInputChange = (evnent) => {
+        const inputValue = evnent.target.value;
+        if (inputValue.trim().length < 3) {
+            setMessage('Invalid')
+        } else {
+            setMessage('Valid')
+        }
+    }
+
+    return (
+        <form>
+            <label>Your message</label>
+            <input type="text" onChange={handleInputChange} />
+            <p>{message} message</p>
+        </form>
+    );
+}
+```
+
+연습: 이전 상태를 기반으로 상태 업데이트하기
+
+답
+
+```
+import React, { useState } from 'react';
+
+import './styles.css';
+
+// don't change the Component name "App"
+export default function App() {
+    const [counter,setCounter] = React.useState(0)
+
+    function increaseCount() {
+    setCounter(prevCounter => prevCounter + 1);
+    };
+
+
+    return (
+      <div>
+        <p id="counter">{counter}</p>
+        <button onClick={increaseCount}>Increment</button>
+      </div>
+    );
+}
+```
+
+## 77. 대안: 공유 핸들러 함수 생성하기
+
+- ChangeHandler 함수가 세 개가 있습니다(제목, 금액, 날짜),상태 슬라이도 세 개, 인풋도 세 개로 제작을 할 수 있다
+- 하지만, 공유 핸들러 함수를 이용을 해서도 가능하다
+
+```
+// function
+// 화살표
+const inputChangeHandler = (identifier, value) => { // identifier랑 value라는 매개변수 필요
+    if (identifier === "title") { // identifier가 title 이면
+      setEnteredTitle(value); // title 값 업데이트
+    } else if (identifier === "date") { // identifier가 date 이면
+      setEnteredDate(value); // date 값 업데이트
+    } else {
+      setEnteredAmount(value); // amount 값 업데이트
+    }
+  };
+
+// 렌더링 부분
+// 넘기는 부분을 화살표 함수를 통해서 호출 하는 곳에 직접 쓴다
+// event 라는 것을 받고 inputChangeHandler를 실행한다.
+// 매개변수 값을 넘겨 줘야된다. 첫 번째 인수는 : title, 두번째 인수는 event.target.value로 넘깁니다.
+<div className="new-expense__control">
+          <label>Title</label>
+          <input
+            type="text"
+            onChange={(event) =>
+              inputChangeHandler("title", event.target.value)
+            }
+          />
+        </div>
+
+```
+
+## 78. 양식 제출 처리하기
+
+- button의 type이 submit이면 form 요소 자체에서 이벤트 발생함
+- submit 이벤트를 하면 웹 브라우저 자체에서 다시 로딩이 됨. 그 이유는 브라우저는 자동으로 요청을 보낸다
+- 이 양식이 제출이 되었을 때, JS로 처리하고 직접 데이터 수집하고 모아서 먼가 하는 것임
+
+```
+// submit 이벤트
+ const submitHandler = (event) => {
+    event.preventDefault(); // 기본 기능 막음(자동 발송 되는 기능 막음)
+
+    // 객체 생성
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    console.log(expenseData);
+
+
+  };
+```
+
+콘솔 값
+
+```
+amount
+:
+"0.04"
+date
+:
+Tue Dec 13 2022 09:00:00 GMT+0900 (한국 표준시) {}
+title
+:
+"test"
+[[Prototype]]
+:
+Object
+```
+
+- 그 다움 입력란 비우는 것임
+
+## 79. 양방향 바인딩 추가하기
+
+- input 값 지우는 방법은 입력된 값을 저장하기 위해서 useState를 사용하였음
+- 다른 방법으로는 컴포넌트 함수 밖에서 지역 변수를 쓰는 방법도 있음
+- 양방햔 바인딩(Two-way binding): 인풋 요소에 발생하는 변경사항을 수신도 하고 인풋 요소에 새 값을 넣을 수도 있다
+- 즉, 코드를 이용해 인풋의 값을 초기화하거나 바꿀수 있다
+- 실행 순서는 양식이 제출됐을 때, setEnteredTitle를 호출하해서 빈 문자열로 인풋으로 체울소 있는 것임 즉, 초기 상태로 하는 것임
+- 양방향 바인딩이 리액트 핵심 개념입니다.
+
+```
+const submitHandler = (event) => {
+    event.preventDefault(); // 기본 기능 막음(자동 발송 되는 기능 막음)
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    console.log(expenseData);
+    setEnteredTitle(""); // 빈 값으로 바꿈
+    setEnteredAmount(""); // 빈 값으로 바꿈
+    setEnteredDate(""); // 빈 값으로 바꿈
+  };
+
+
+div className="new-expense__control">
+          <label>Title</label>
+          <input
+            type="text"
+            value={enteredTitle} // 인풋값 초기화 및 바꾸는 법 : value 속성 추가하면됨
+            onChange={titleChangeHandler}
+          />
+        </div>
+```
+
+## 80. 자식-부모 컴포넌트 통신(상향식)
+
+- 목표 : 새 지출 사용자가 입력한 이 내역을 기존 지출 목록에 추가하기
+- 식별자 추가, 수집한 데이터 전달을 해야됨(ExpenseForm에 생성한 데이터를 App 컴포넌트로 전달해야됨)
+- 여태까지는 부모가 자식한테 주는 방식으로 배웠음
+- 그럼 자식이 부모한테 데이터 주는 방식은?(Expenses에서 App으로 전송)
+- ExpenseForm 컴포넌트에서 form 태그에서 사용자가 직접하고
+  title 인풋에 값을 입력할 때마다 titleChangeHandler 함수 실행되고 그 함수에서 자동으로 이 기본 event 객체를 받음
+  이 것은 브라우저에서 받는 것임
+  기본으로 리액트에서 제공하는 컴포넌트로라서 DOM에는 인풋 요소로 전달되는 그런 컴포넌트입니다.
+  끝에 보면 컴포넌트를 마무리하는 문자가 있음
+  컴포넌트 속성 지동하고 onChange라는 속성도 넣음
+
+- 상향식으로 하는 방법은 값으로 함수를 요구하고 그 함수를 부모 컴포넌트에게 받아 자식 컴포넌트ㄴ에게 전달하고 그 함수를 자식 컴포넌트 안에서 호출하는 것임
+  그 함수를 호출할 떄, 데이터를 함수에 인자 형태로 전달할 수 있꼬. 이 방식을 이용해 자식에서 부모로 데이터 전달가능함
+
+- 자식에서 부모로 데이터 전달
+
+1. 지출 데이터를 NewExpenses로 전달함
+
+```
+// 함수 영역
+const saveExpenseDataHandler = (enteredExpenseData) => {
+    const expenseData = {
+      ...enteredExpenseData,
+      id: Math.random().toString(),
+    };
+    console.log(expenseData);
+  };
+
+// 렌더링 영역
+<div className="new-expense">
+      <ExpenseForm onSaveExpenseData={saveExpenseDataHandler} />
+    </div>
+```
+
+- 컴포넌트 사이에서 정보 교환이 자주 일어남(상향 및 하향)
+- 상태와 이벤트 처리 작업
+- 데이터를 위로도 전달을 할 수 있다.

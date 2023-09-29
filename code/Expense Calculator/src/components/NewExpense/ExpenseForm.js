@@ -1,43 +1,80 @@
 import React, { useState } from "react";
 import "./ExpenseForm.css";
 
-const ExpenseForm = () => {
-  // const [enteredTitle, setEnteredTitle] = useState("");
-  // const [enteredAmount, setEnteredAmount] = useState("");
-  // const [enteredDate, setEnteredDate] = useState("");
-  const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    enteredDate: "",
-  });
+const ExpenseForm = (props) => {
+  const [enteredTitle, setEnteredTitle] = useState("");
+  const [enteredAmount, setEnteredAmount] = useState("");
+  const [enteredDate, setEnteredDate] = useState("");
+  // const [userInput, setUserInput] = useState({
+  //   enteredTitle: "",
+  //   enteredAmount: "",
+  //   enteredDate: "",
+  // });
 
   const titleChangeHandler = (event) => {
-    // setEnteredTitle(event.target.value);
-    setUserInput({
-      ...userInput,
-      enteredTitle: event.target.value,
-    });
+    setEnteredTitle(event.target.value);
+    // setUserInput({
+    //   ...userInput,
+    //   enteredTitle: event.target.value,
+    // });
+    // setUserInput((prevState) => {
+    //   return { ...prevState, enteredTitle: event.target.value };
+    // });
   };
 
   const AmountChangeHandler = (event) => {
-    // setEnteredAmount(event.target.value);
-    setUserInput({
-      enteredAmount: event.target.value,
-    });
+    setEnteredAmount(event.target.value);
+    // setUserInput({
+    // enteredAmount: event.target.value,
+    // });
   };
 
   const dateChangeHandler = (event) => {
-    setUserInput({
-      enteredDate: event.target.value,
-    });
+    setEnteredDate(event.target.value);
+    // setUserInput({
+    //   enteredDate: event.target.value,
+    // });
+  };
+
+  // const inputChangeHandler = (identifier, value) => {
+  //   // identifier랑 value라는 매개변수 받음
+  //   if (identifier === "title") {
+  //     // identifier가 title 이면
+  //     setEnteredTitle(value); // title 값 업데이트
+  //   } else if (identifier === "date") {
+  //     // identifier가 date 이면
+  //     setEnteredDate(value); // date 값 업데이트
+  //   } else {
+  //     setEnteredAmount(value);
+  //   }
+  // };
+
+  const submitHandler = (event) => {
+    event.preventDefault(); // 기본 기능 막음(자동 발송 되는 기능 막음)
+
+    const expenseData = {
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: new Date(enteredDate),
+    };
+
+    // console.log(expenseData);
+    props.onSaveExpenseData(expenseData); // 부모
+    setEnteredTitle("");
+    setEnteredAmount("");
+    setEnteredDate("");
   };
 
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input
+            type="text"
+            value={enteredTitle} // 인풋값 초기화 및 바꾸는 법 : value 속성 추가하면됨
+            onChange={titleChangeHandler}
+          />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
@@ -45,6 +82,7 @@ const ExpenseForm = () => {
             type="number"
             min="0.01"
             step="0.01"
+            value={enteredAmount} // 인풋값 초기화 및 바꾸는 법 : value 속성 추가하면됨
             onChange={AmountChangeHandler}
           />
         </div>
@@ -54,6 +92,7 @@ const ExpenseForm = () => {
             type="date"
             min="2019-01-01"
             max="2022-12-31"
+            value={enteredDate} // 인풋값 초기화 및 바꾸는 법 : value 속성 추가하면됨
             onChange={dateChangeHandler}
           />
         </div>
