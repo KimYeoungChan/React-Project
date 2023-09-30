@@ -469,3 +469,72 @@ const saveExpenseDataHandler = (enteredExpenseData) => {
 - 컴포넌트 사이에서 정보 교환이 자주 일어남(상향 및 하향)
 - 상태와 이벤트 처리 작업
 - 데이터를 위로도 전달을 할 수 있다.
+
+## 81. 상태 위로 올리기
+
+- 상태 올리기 배우기
+- App 컴포넌트에서 Expenses 컴포넌트와 NewExpense 컴포넌트가 있습니다. NewExpense 컴포넌트튼 date랑 상태 생성하는 컴포넌트입니다. 사용자한테 입력한 데이터 값을 가져오는 작업을 합니다
+  그리고 그 데이터를 Expenses 컴포넌토가 결국 필요한 곳입니다
+- NewExpense 데이터를 Expenses에 직접 전달은 안됩니다.(형제 컴포넌트라서) 부모를 통해서 전달을 받아야 됩니다
+- NewExpense의 데이터를 App 컴포넌트에 전달을 합니다
+
+```
+// NewExpense.js
+const saveExpenseDataHandler = (enteredExpenseData) => {
+    const expenseData = {
+      ...enteredExpenseData,
+      id: Math.random().toString(),
+    };
+    // console.log(expenseData);
+    props.onAddExpense(expenseData);
+}
+props.onAddExpense로 부모에게 상태를 전달을 하는게 아니고 함수만
+호출하는 것임
+expenseData을 넣으면 부모한테 상태를 전달 하는 것임
+
+// App.js
+ // 가장 먼저 렌더링 되는 컴포넌트에 잘 들어왔는지 확인
+  const addExpenseHandler = (expenses) => {
+    console.log("In App.js");
+    console.log(expenses);
+  };
+
+- 최상위 컴포넌트인 App.js가 ExpenseForm,NewExpense 컴포넌트에 접근을 할 수 있습니다.
+
+// ExpenseForm.js
+이 컴포넌트가 사용자가 입력한 값을 취득하고 저장하는 컴포넌트임
+```
+
+- 데이터를 올릴 때, 필요한 곳(대상이 되는 컴포넌트)까지 올리면 되는 것임, 항상 최상위 컴포넌트까지 올리는 것은 아님
+
+## 82. 파생/계산된 상태
+
+- 양방향을 할 때마다 컴포넌트 제어
+- ExpensesFilter에 있는 자식 컴포넌트의 데이터를 Expenses인 부모 컴포넌트로 보내는 것을 제작함
+- Expenses 컴포넌트가 ExpensesFilter를 제어되는 컴포넌트로 만들어줌
+- 값, 값에 발생하는 변경 작업은 컴포넌트 자체에서 처리하지 않고 부모 컴포넌트에서 처리함
+- Presentational 컴포넌트(프레젠테이션 컴포넌트) or "stateful 컴포넌트(상태 컴포넌트)"
+- 프리젠테이션 컴포넌트(상태 없는 컴포넌트)는 내부 상태가 없는 상태임, 단순히 데이터를 출력하기 위한 존재
+- 보통 Presentational 컴포넌트 비율이 높다
+
+질문
+
+1. React로 작업 시 이벤트를 수신하지 않는 방법은 무엇일까요?
+   답 : 수동으로 이벤트 리스너를 추가(addEventListner)
+
+2. onClick과 같은 이벤트 리스너 프로퍼티에는 어떤 값을 전달해야 하나요?
+   답 : 이벤트가 발생했을 때, 실행해야 하는 함수의 포인터
+
+3. useState에 관한 설명으로 옳지 않은 것은 무엇인가요?
+   답 : useState를 다시 호출하면 상태 값이 업데이트된다.
+
+4.
+
+```
+이 코드 조각에 무슨 문제가 있나요?
+const [counter, setCounter] = useState(1);
+...
+setCounter(counter + 1);
+```
+
+답 : 이전 상태에 의존하는 를상태를 업데이트한다면, 상태 업데이트의 함수의 "함수 양식"을 대신 사용 해야 한다.
