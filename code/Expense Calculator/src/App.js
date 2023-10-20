@@ -1,9 +1,9 @@
-import Expenses from "./components/Expenses/Expenses";
 import React from "react";
+
 import NewExpense from "./components/NewExpense/NewExpense";
+import Expenses from "./components/Expenses/Expenses";
 
 const App = () => {
-  // 데이터
   const expenses = [
     {
       id: "e1",
@@ -26,16 +26,21 @@ const App = () => {
     },
   ];
 
-  // 가장 먼저 렌더링 되는 컴포넌트에 잘 들어왔는지 확인
-  const addExpenseHandler = (expenses) => {
+  const addExpenseHandler = (expense) => {
     console.log("In App.js");
-    console.log(expenses);
+    console.log(expense);
   };
+
+  // return React.createElement(
+  //   'div',
+  //   {},
+  //   React.createElement('h2', {}, "Let's get started!"),
+  //   React.createElement(Expenses, { items: expenses })
+  // );
 
   return (
     <div>
       <NewExpense onAddExpense={addExpenseHandler} />
-      {/* expenses 컴포넌트 items 안에 expenses데이터 넣음 */}
       <Expenses items={expenses} />
     </div>
   );

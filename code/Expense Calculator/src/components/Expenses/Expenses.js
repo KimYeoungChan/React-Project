@@ -18,6 +18,13 @@ const Expenses = (props) => {
           seleted={filteredYear}
           onChangeFilter={filterChangeHandler}
         />
+        {props.items.map((expense) => (
+          <ExpenseItem
+            title={expense.title}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))}
         <ExpenseItem
           // 데이터를 전달을 할 때,
           // title,amount,date에서 props.items[n]. title,amount,date로 보낸다.
